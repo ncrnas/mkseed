@@ -6,7 +6,7 @@
 # Main CMakeLists.txt file.
 # ===========================================================================
 
-project (mikans)
+project (mkseed)
 
 # ===========================================================================
 # We require CMake 2.8.2.  Since it is available in the currently stable
