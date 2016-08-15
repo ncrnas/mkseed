@@ -1,8 +1,5 @@
-//
-// Created by takaya on 8/9/16.
-//
-
 #include "gtest/gtest.h"
+#include "mkseed_core.hpp"
 
 TEST(basic_check, test_eq) {
     EXPECT_EQ(1, 0);

@@ -22,8 +22,12 @@ find_package (SeqAn REQUIRED)
 # Build Setup
 # ----------------------------------------------------------------------------
 
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../lib/mkseed msd)
+
 # Add include directories
-include_directories (${SEQAN_INCLUDE_DIRS})
+include_directories (${SEQAN_INCLUDE_DIRS}
+        ${MKS_HEADERS})
 
 # Add definitions set by find_package (SeqAn)
 add_definitions (${SEQAN_DEFINITIONS})
@@ -32,7 +36,9 @@ add_definitions (${SEQAN_DEFINITIONS})
 add_executable (find_seed find_seed.cpp)
 
 # Add dependencies found by find_package (SeqAn)
-target_link_libraries (find_seed ${SEQAN_LIBRARIES})
+add_library(msd ${MKS_SOURCE})
+
+target_link_libraries (find_seed msd ${SEQAN_LIBRARIES})
 
 # Add CXX flags found by find_package (SeqAn)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
