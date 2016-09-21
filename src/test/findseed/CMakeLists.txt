@@ -38,7 +38,7 @@ else()
 endif()
 
 # Add executable applications
-add_executable (findseed_test basic_check.cpp read_fasta.cpp test_ds1.cpp)
+add_executable (findseed_test basic_check.cpp read_fasta.cpp test_ds1.cpp test_ds2.cpp)
 
 # Add dependencies found by find_package (SeqAn)
 target_link_libraries (findseed_test gtest gtest_main)

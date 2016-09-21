@@ -223,44 +223,18 @@ namespace {
     }
 
     TEST_F(TestDS1, comp_ngram) {
-        read_files();
-
-        int search_res;
-        std::ofstream ofstream2(toCString(ofile2));
-        search_res = search_by_ngram(ofstream2, mirna_ids, mirna_seqs, mrna_ids, mrna_seqs);
-        EXPECT_EQ(0, search_res);
-
-        gtest_compare_two_files(ofile1, ofile2);
+        comp_ngram();
     }
 
     TEST_F(TestDS1, comp_bruteforce) {
-        read_files();
-
-        int search_res;
-        std::ofstream ofstream2(toCString(ofile2));
-        search_res = search_by_bruteforce(ofstream2, mirna_ids, mirna_seqs, mrna_ids, mrna_seqs);
-        EXPECT_EQ(0, search_res);
-
-        gtest_compare_two_files(ofile1, ofile2);
+        comp_bruteforce();
     }
 
     TEST_F(TestDS1, comp_horspool) {
-        read_files();
-
-        int search_res;
-        std::ofstream ofstream2(toCString(ofile2));
-        search_res = search_by_horspool(ofstream2, mirna_ids, mirna_seqs, mrna_ids, mrna_seqs);
-        EXPECT_EQ(0, search_res);
-
-        gtest_compare_two_files(ofile1, ofile2);
+        comp_horspool();
     }
 
     TEST_F(TestDS1, comp_suffixarray) {
-        read_files();
-
-        int search_res;
-        std::ofstream ofstream2(toCString(ofile2));
-        search_res = search_by_suffixarray(ofstream2, mirna_ids, mirna_seqs, mrna_ids, mrna_seqs);
-        EXPECT_EQ(0, search_res);
+        comp_suffixarray();
     }
 }
