@@ -1,1 +1,0 @@
-hsa-miR-124 MIMAT0000422	hg18_refgene test1_8mer	15

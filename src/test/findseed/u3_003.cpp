@@ -3,18 +3,18 @@
 
 namespace {
 
-    class TestDS3 : public TestDS
+    class U3003 : public TestDS
     {
     protected:
-        TestDS3() {
-            IFNAME1 = (char *)"hsa_mirbase_1.txt";
-            IFNAME2 = (char *)"utr3.txt";
+        U3003() {
+            IFNAME1 = (char *)"mir_001.txt";
+            IFNAME2 = (char *)"utr3_003.txt";
             OFNAME1 = (char *)"test_output_3.txt";
             OFNAME2 = (char *)"test_ds3.txt";
         }
     };
 
-    TEST_F(TestDS3, mrna_fasta) {
+    TEST_F(U3003, mrna_fasta) {
         read_files();
 
         EXPECT_EQ(1u, length(mrna_ids));
@@ -54,19 +54,19 @@ namespace {
         EXPECT_STREQ(seq1, seqan::toCString((seqan::CharString)mrna_seqs[0]));
     }
 
-    TEST_F(TestDS3, comp_ngram) {
+    TEST_F(U3003, comp_ngram) {
         comp_ngram();
     }
 
-    TEST_F(TestDS3, comp_bruteforce) {
+    TEST_F(U3003, comp_bruteforce) {
         comp_bruteforce();
     }
 
-    TEST_F(TestDS3, comp_horspool) {
+    TEST_F(U3003, comp_horspool) {
         comp_horspool();
     }
 
-    TEST_F(TestDS3, comp_suffixarray) {
+    TEST_F(U3003, comp_suffixarray) {
         comp_suffixarray();
     }
 }

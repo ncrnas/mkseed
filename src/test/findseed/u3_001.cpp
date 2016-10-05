@@ -3,18 +3,18 @@
 
 namespace {
 
-    class TestDS1 : public TestDS
+    class U3001 : public TestDS
     {
     protected:
-        TestDS1() {
-            IFNAME1 = (char *)"hsa_mirbase_1.txt";
-            IFNAME2 = (char *)"utr1.txt";
+        U3001() {
+            IFNAME1 = (char *)"mir_001.txt";
+            IFNAME2 = (char *)"utr3_001.txt";
             OFNAME1 = (char *)"test_output_1.txt";
             OFNAME2 = (char *)"test_ds1.txt";
         }
     };
 
-    TEST_F(TestDS1, mirna_fasta) {
+    TEST_F(U3001, mirna_fasta) {
         read_files();
 
         EXPECT_EQ(2u, length(mirna_ids));
@@ -29,7 +29,7 @@ namespace {
         EXPECT_STREQ(seq2, seqan::toCString((seqan::CharString)mirna_seqs[1]));
     }
 
-    TEST_F(TestDS1, mrna_fasta) {
+    TEST_F(U3001, mrna_fasta) {
         read_files();
 
         EXPECT_EQ(4u, length(mrna_ids));
@@ -207,7 +207,7 @@ namespace {
         EXPECT_STREQ(seq4, seqan::toCString((seqan::CharString)mrna_seqs[3]));
     }
 
-    TEST_F(TestDS1, get_seed) {
+    TEST_F(U3001, get_seed) {
         read_files();
 
         int get_seed_res;
@@ -222,19 +222,19 @@ namespace {
         EXPECT_STREQ("CAUUCC", seqan::toCString((seqan::CharString)seed));
     }
 
-    TEST_F(TestDS1, comp_ngram) {
+    TEST_F(U3001, comp_ngram) {
         comp_ngram();
     }
 
-    TEST_F(TestDS1, comp_bruteforce) {
+    TEST_F(U3001, comp_bruteforce) {
         comp_bruteforce();
     }
 
-    TEST_F(TestDS1, comp_horspool) {
+    TEST_F(U3001, comp_horspool) {
         comp_horspool();
     }
 
-    TEST_F(TestDS1, comp_suffixarray) {
+    TEST_F(U3001, comp_suffixarray) {
         comp_suffixarray();
     }
 }
