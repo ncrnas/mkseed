@@ -7,7 +7,7 @@
 # ===========================================================================
 
 cmake_minimum_required (VERSION 2.8.2)
-project (mikan_apps_find_seed)
+project (mkseed_apps_find_seed)
 message (STATUS "Configuring mikan/apps/find_seed")
 
 # ----------------------------------------------------------------------------
