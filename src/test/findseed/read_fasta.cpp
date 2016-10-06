@@ -29,7 +29,7 @@ namespace {
     };
 
     TEST_F(fasta_test, mirna_fasta) {
-        dfile += "mature_single_1.fa";
+        dfile += "mir_002.fa";
 
         fread_res = read_fasta(dfile, mirna_ids, mirna_seqs);
         EXPECT_EQ(0, fread_res);
@@ -45,7 +45,7 @@ namespace {
     }
 
     TEST_F(fasta_test, mrna_fasta) {
-        dfile += "refseq_single_1.fa";
+        dfile += "utr3_011.fa";
 
         fread_res = read_fasta(dfile, mrna_ids, mrna_seqs);
         EXPECT_EQ(0, fread_res);
@@ -64,9 +64,9 @@ namespace {
         seqan::CharString dfile2;
 
         dfile1 = dfile;
-        dfile1 += "mature_single_1.fa";
+        dfile1 += "mir_002.fa";
         dfile2 = dfile;
-        dfile2 += "mature_single_1.fa";
+        dfile2 += "mir_002.fa";
         int fres = gtest_compare_two_files(dfile1, dfile2);
         if (fres != 0)
         {

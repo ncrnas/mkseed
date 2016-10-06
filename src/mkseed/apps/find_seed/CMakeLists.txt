@@ -7,7 +7,7 @@
 # ===========================================================================
 
 cmake_minimum_required (VERSION 2.8.2)
-project (mikan_apps_find_seed)
+project (mkseed_apps_find_seed)
 message (STATUS "Configuring mikan/apps/find_seed")
 
 # ----------------------------------------------------------------------------
@@ -58,9 +58,9 @@ install (TARGETS find_seed
 
 # Install non-binary files for the package to "." for app builds and
 # ${PREFIX}/share/doc/find_seed for SeqAn release builds
-install (FILES LICENSE
-               README
-         DESTINATION ${SEQAN_PREFIX_SHARE_DOC})
+#install (FILES LICENSE
+#               README
+#         DESTINATION ${SEQAN_PREFIX_SHARE_DOC})
 #install (FILES example/fasta1.fa
 #               example/fasta2.fa
 #         DESTINATION ${SEQAN_PREFIX_SHARE_DOC}/example)
