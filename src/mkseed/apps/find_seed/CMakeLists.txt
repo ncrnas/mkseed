@@ -7,7 +7,7 @@
 # ===========================================================================
 
 cmake_minimum_required (VERSION 2.8.2)
-project (mikan_apps_find_seed)
+project (mkseed_apps_find_seed)
 message (STATUS "Configuring mikan/apps/find_seed")
 
 # ----------------------------------------------------------------------------
@@ -22,8 +22,12 @@ find_package (SeqAn REQUIRED)
 # Build Setup
 # ----------------------------------------------------------------------------
 
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../lib/mkseed msd)
+
 # Add include directories
-include_directories (${SEQAN_INCLUDE_DIRS})
+include_directories (${SEQAN_INCLUDE_DIRS}
+        ${MKS_HEADERS})
 
 # Add definitions set by find_package (SeqAn)
 add_definitions (${SEQAN_DEFINITIONS})
@@ -32,7 +36,9 @@ add_definitions (${SEQAN_DEFINITIONS})
 add_executable (find_seed find_seed.cpp)
 
 # Add dependencies found by find_package (SeqAn)
-target_link_libraries (find_seed ${SEQAN_LIBRARIES})
+add_library(msd ${MKS_SOURCE})
+
+target_link_libraries (find_seed msd ${SEQAN_LIBRARIES})
 
 # Add CXX flags found by find_package (SeqAn)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
@@ -52,9 +58,9 @@ install (TARGETS find_seed
 
 # Install non-binary files for the package to "." for app builds and
 # ${PREFIX}/share/doc/find_seed for SeqAn release builds
-install (FILES LICENSE
-               README
-         DESTINATION ${SEQAN_PREFIX_SHARE_DOC})
+#install (FILES LICENSE
+#               README
+#         DESTINATION ${SEQAN_PREFIX_SHARE_DOC})
 #install (FILES example/fasta1.fa
 #               example/fasta2.fa
 #         DESTINATION ${SEQAN_PREFIX_SHARE_DOC}/example)
