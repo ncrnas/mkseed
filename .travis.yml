@@ -13,4 +13,6 @@ before_script:
   - cd build
   - cmake --version
   - cmake -DCMAKE_VERBOSE_MAKEFILE=ON ../src
-script: make
+script:
+  - make
+  - ./findseed_test
