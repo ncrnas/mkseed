@@ -1,8 +1,7 @@
 language: cpp
 compiler:
   - gcc
-  - clang
-# trusty (14.04) is now used instead of precise (12.04)
+#  - clang
 sudo: required
 dist: trusty
 #branches:
@@ -13,5 +12,5 @@ before_script:
   - mkdir build
   - cd build
   - cmake --version
-  - cmake -DCMAKE_VERBOSE_MAKEFILE=ON ..
+  - cmake -DCMAKE_VERBOSE_MAKEFILE=ON ../src
 script: make
