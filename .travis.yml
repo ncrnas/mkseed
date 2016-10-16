@@ -1,18 +1,26 @@
 language: cpp
-compiler:
-  - gcc
+
+os:
+  - linux
+  - osx
+
+#compiler:
+#  - gcc
 #  - clang
-sudo: required
-dist: trusty
+
+sudo: false
+
 #branches:
 #  only:
 #    - master
 #    - develop
+
 before_script:
   - mkdir build
   - cd build
   - cmake --version
   - cmake -DCMAKE_VERBOSE_MAKEFILE=ON ../src
+
 script:
   - make
   - ./bin/findseed_test
