@@ -49,7 +49,7 @@ build_script:
     md _build -Force | Out-Null
     cd _build
 
-    & cmake -G "$generator" -DCMAKE_VERBOSE_MAKEFILE=ON ../src
+    & cmake -G "$generator" ../src
     if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
     }
