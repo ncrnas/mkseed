@@ -1,25 +1,32 @@
 language: cpp
 
-os:
-  - linux
-  - osx
-
-compiler:
-  - gcc
-  - clang
-
-sudo: false
-
 #branches:
 #  only:
 #    - master
 #    - develop
 
+sudo: false
+
+matrix:
+  include:
+    - os: linux
+      env: CONFIG=Debug
+      compiler: gcc
+    - os: linux
+      env: CONFIG=Debug
+      compiler: clang
+    - os: linux
+      env: CONFIG=Release
+      compiler: gcc
+    - os: osx
+      env: CONFIG=Release
+      compiler: clang
+
 before_script:
   - mkdir build
   - cd build
   - cmake --version
-  - cmake -DCMAKE_VERBOSE_MAKEFILE=ON ../src
+  - cmake -D CMAKE_VERBOSE_MAKEFILE=ON -D CMAKE_BUILD_TYPE=${CONFIG} ../src
 
 script:
   - make

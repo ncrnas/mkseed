@@ -9,13 +9,13 @@ environment:
 #  - Toolset: v110
 #  - Toolset: v100
 
-#platform:
-#  - Win32
-#  - x64
+platform:
+  - Win32
+  - x64
 
 configuration:
-  - Release
-#  - Debug
+#  - Release
+  - Debug
 
 build:
   verbosity: minimal
