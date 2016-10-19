@@ -14,7 +14,7 @@ platform:
   - x64
 
 configuration:
-#  - Release
+  - Release
   - Debug
 
 build:
@@ -49,7 +49,7 @@ build_script:
     md _build -Force | Out-Null
     cd _build
 
-    & cmake -G "$generator" -D CMAKE_BUILD_TYPE=${$env:CONFIGURATION} ../src
+    & cmake -G "$generator" -D CMAKE_BUILD_TYPE=$env:CONFIGURATION ../src
     if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
     }
@@ -65,7 +65,8 @@ test_script:
         return
     }
 
-#    & ctest -C $env:CONFIGURATION --output-on-failure
-#    if ($LastExitCode -ne 0) {
-#        throw "Exec: $ErrorMessage"
-#    }
+    & .\bin\$env:CONFIGURATION\findseed_test.exe
+    if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+    }
+
