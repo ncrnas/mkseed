@@ -1,13 +1,18 @@
 version: '{build}'
 
+#branches:
+#  only:
+#    - master
+#    - develop
+
 os: Visual Studio 2015
 
 environment:
   matrix:
-  - Toolset: v140
-#  - Toolset: v120
-#  - Toolset: v110
-#  - Toolset: v100
+    - Toolset: v140
+#    - Toolset: v120
+#    - Toolset: v110
+#    - Toolset: v100
 
 platform:
   - Win32
@@ -21,48 +26,77 @@ build:
   verbosity: minimal
 
 before_build:
-- ps: |
-    Write-Output "Configuration: $env:CONFIGURATION"
-    Write-Output "Platform: $env:PLATFORM"
-    $generator = switch ($env:TOOLSET)
-    {
+  - ps: |
+      Write-Output "Configuration: $env:CONFIGURATION"
+      Write-Output "Platform: $env:PLATFORM"
+      $generator = switch ($env:TOOLSET)
+      {
         "v140" {"Visual Studio 14 2015"}
         "v120" {"Visual Studio 12 2013"}
         "v110" {"Visual Studio 11 2012"}
         "v100" {"Visual Studio 10 2010"}
-    }
-    if ($env:PLATFORM -eq "x64")
-    {
+      }
+      if ($env:PLATFORM -eq "x64")
+      {
         $generator = "$generator Win64"
-    }
+      }
 
 build_script:
-- ps: |
-    if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
-    {
+  - ps: |
+      if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
+      {
         return
-    }
-    md _build -Force | Out-Null
-    cd _build
+      }
+      md _build -Force | Out-Null
+      cd _build
 
-    & cmake -G "$generator" -D CMAKE_BUILD_TYPE=$env:CONFIGURATION ../src
-    if ($LastExitCode -ne 0) {
+      & cmake -G "$generator" -D CMAKE_BUILD_TYPE=$env:CONFIGURATION ../src
+      if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
-    }
-    & cmake --build . --config $env:CONFIGURATION
-    if ($LastExitCode -ne 0) {
+      }
+
+      & cmake --build . --config $env:CONFIGURATION
+      if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
-    }
+      }
+
+after_build:
+  - ps: |
+      if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
+      {
+        return
+      }
+
+      & 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe ..\LICENSE ..\NEWS.md ..\README.md
+      if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+      }
+
+      & appveyor PushArtifact mkseed_win_v140_$env:PLATFORM.zip
+      if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+      }
 
 test_script:
-- ps: |
-    if (($env:Toolset -eq "v100") -and ($env:PLATFORM -eq "x64"))
-    {
+  - ps: |
+      if (($env:Toolset -eq "v100") -and ($env:PLATFORM -eq "x64"))
+      {
         return
-    }
+      }
 
-    & .\bin\$env:CONFIGURATION\findseed_test.exe
-    if ($LastExitCode -ne 0) {
+      & .\bin\$env:CONFIGURATION\findseed_test.exe
+      if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
-    }
+      }
 
+deploy:
+  - provider: GitHub
+    api_key:
+      secure: j1h5g/0lsbNqWV8GvsjA/HQdUDxkiM3IyeSB221HvlBZZylb/sGoKvePcwojbgv0
+    artifact: /mkseed_win_.*\.zip/
+    draft: false
+    prerelease: false
+    on:
+      branch: master                # release from master branch only
+      appveyor_repo_tag: true       # deploy on tag push only
+      configuration: Release
