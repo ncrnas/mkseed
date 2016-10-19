@@ -11,16 +11,16 @@ sudo: false
 matrix:
   include:
   - os: linux
-    env: CONFIG=Debug
+    env: CONFIG=Debug UPLOADFNAME=mkseed_linux_gcc_x64.tar.gz
     compiler: gcc
   - os: linux
-    env: CONFIG=Debug
+    env: CONFIG=Debug UPLOADFNAME=mkseed_linux_clang_x64.tar.gz
     compiler: clang
   - os: linux
-    env: CONFIG=Release
+    env: CONFIG=Release UPLOADFNAME=mkseed_linux_gcc_x64.tar.gz
     compiler: gcc
   - os: osx
-    env: CONFIG=Release
+    env: CONFIG=Release UPLOADFNAME=mkseed_osx_clang_x64.tar.gz
     compiler: clang
 
 before_script:
@@ -38,13 +38,14 @@ after_success:
 - mkdir mkseed
 - cp LICENSE NEWS.md README.md ./mkseed/
 - cp ./build/bin/find_seed ./mkseed/
-- tar -czvf mkseed_${os}_${compiler}.tar.gz mkseed
+- tar -czvf $UPLOADFNAME mkseed
+- ls -al $UPLOADFNAME
 
 deploy:
   provider: releases
   api_key:
     secure: jTygYVlH3QLSRZHaGjZZ4BwLkTnAdT1HF/8nQBd/B91FyorK8CERa8Dh/4Bslstd+rOsOICiSUCi2zJ69YMEcUJe49eklAHy/c/R/d7WQnWYvDNmEZKSwijDVbe9N90MeieKLiInviVEn7tUnwo5D91ViXrl8CA20RpB580x59XLgmxF0ye+F2uifC78wh/Ebaw+lnln+K1NH1DCVNBqfOw/PY2gwuYZCaikRtd1tEpTFIxmBV4LcsOCH1hx31PGXFU4gsic4wKfd6ZQ8MmSF4D72RrjpUSznbqFkbx2xbDmDIupEIk9dJMeGEudsPvobYkFiqdKggqP48mQunWuAr+cmHMbfZPPuviYJin38BNH/G/HQkWiuTT7jWdI+jL0W1uH+5ihWil5iIcE1GVIyjsn+I62N+xMmTjSVMtW7AAfWQjsfqqz9kcqSQEjOsslaUvfgmXJNqsRQXYKsdMKE6NmPJRlbEdUPSDPhSkdidZyiu5EVMzhy9dxPhnA+0rcGx73aR4zU61a8ffyYFGESizJC55fLLwGbftHpi07Sl/hgpBw/BN8rLwxSwSlj1400WNeq0dpV0yp1x24AFfUTze6YJ9CnMy6hkAWjaW0aU6RHgukoSZQAeBekJGdsTAWV1WI0yG0egHGukhQkD31nUBm6IdlHLgGXeqXPkCx7Sk=
-  file: mkseed_${os}_${compiler}.tar.gz
+  file: $UPLOADFNAME
   skip_cleanup: true
   on:
     repo: takayasaito/mkseed
