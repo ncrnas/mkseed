@@ -33,17 +33,17 @@ script:
   - ./bin/findseed_test
 
 after_success:
-  - pwd
+  - cd ..
   - mkdir mkseed
   - cp LICENSE NEWS.md README.md ./mkseed/
-  - cp ./bin/findseed ./mkseed/
+  - cp ./build/bin/find_seed ./mkseed/
   - tar -czvf mkseed_${os}_${compiler}.tar.gz mkseed
 
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
+  api_key: "8efbd15301c4e8de36569f2900d3f5e68ec87cec"
   file: mkseed_${os}_${compiler}.tar.gz
   skip_cleanup: true
   on:
     tags: true
-  condition: "$CONFIG = Release"
+    condition: "$CONFIG = Release"
