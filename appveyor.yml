@@ -41,10 +41,6 @@ before_build:
         $generator = "$generator Win64"
       }
 
-after_build:
-  - 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe LICENSE NEWS.md README.md
-  - appveyor PushArtifact mkseed_win_v140_$env:PLATFORM.zip
-
 build_script:
   - ps: |
     if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
@@ -62,6 +58,11 @@ build_script:
     if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
     }
+
+
+after_build:
+  - 7z a -tzip mkseed_win_v140_$(env:PLATFORM).zip .\bin\$env:CONFIGURATION\findseed_test.exe LICENSE NEWS.md README.md
+  - appveyor PushArtifact mkseed_win_v140_$(env:PLATFORM).zip
 
 test_script:
   - ps: |
