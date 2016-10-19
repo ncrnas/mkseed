@@ -60,8 +60,8 @@ build_script:
       }
 
 after_build:
-  - 7z a -tzip mkseed_win_v140_$(env:PLATFORM).zip .\bin\$(env:CONFIGURATION)\findseed_test.exe ..\LICENSE ..\NEWS.md ..\README.md
-  - appveyor PushArtifact mkseed_win_v140_$(env:PLATFORM).zip
+  - 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe ..\LICENSE ..\NEWS.md ..\README.md
+  - appveyor PushArtifact mkseed_win_v140_$env:PLATFORM.zip
 
 test_script:
   - ps: |
