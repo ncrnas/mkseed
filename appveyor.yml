@@ -1,13 +1,18 @@
 version: '{build}'
 
+#branches:
+#  only:
+#    - master
+#    - develop
+
 os: Visual Studio 2015
 
 environment:
   matrix:
-  - Toolset: v140
-#  - Toolset: v120
-#  - Toolset: v110
-#  - Toolset: v100
+    - Toolset: v140
+#    - Toolset: v120
+#    - Toolset: v110
+#    - Toolset: v100
 
 platform:
   - Win32
@@ -21,23 +26,27 @@ build:
   verbosity: minimal
 
 before_build:
-- ps: |
-    Write-Output "Configuration: $env:CONFIGURATION"
-    Write-Output "Platform: $env:PLATFORM"
-    $generator = switch ($env:TOOLSET)
-    {
+  - ps: |
+      Write-Output "Configuration: $env:CONFIGURATION"
+      Write-Output "Platform: $env:PLATFORM"
+      $generator = switch ($env:TOOLSET)
+      {
         "v140" {"Visual Studio 14 2015"}
         "v120" {"Visual Studio 12 2013"}
         "v110" {"Visual Studio 11 2012"}
         "v100" {"Visual Studio 10 2010"}
-    }
-    if ($env:PLATFORM -eq "x64")
-    {
+      }
+      if ($env:PLATFORM -eq "x64")
+      {
         $generator = "$generator Win64"
-    }
+      }
+
+after_build:
+  - 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe LICENSE NEWS.md README.md
+  - appveyor PushArtifact mkseed_win_v140_$env:PLATFORM.zip
 
 build_script:
-- ps: |
+  - ps: |
     if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
     {
         return
@@ -55,7 +64,7 @@ build_script:
     }
 
 test_script:
-- ps: |
+  - ps: |
     if (($env:Toolset -eq "v100") -and ($env:PLATFORM -eq "x64"))
     {
         return
@@ -65,4 +74,3 @@ test_script:
     if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
     }
-
