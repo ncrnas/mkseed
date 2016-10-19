@@ -50,3 +50,6 @@ target_link_libraries (findseed_test msd ${SEQAN_LIBRARIES})
 # Add CXX flags found by find_package (SeqAn)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
 
+# Define helper functions and macros used by Google Test.
+include(${CMAKE_CURRENT_SOURCE_DIR}/../lib/googletest/cmake/internal_utils.cmake)
+config_compiler_and_linker()  # Defined in internal_utils.cmake.

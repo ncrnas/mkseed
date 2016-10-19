@@ -15,13 +15,13 @@ message (STATUS "Configuring mikan/apps/find_seed")
 # ----------------------------------------------------------------------------
 
 # Search dependencies
-#set (SEQAN_FIND_DEPENDENCIES NONE)
+set (SEQAN_FIND_DEPENDENCIES NONE)
 find_package (SeqAn REQUIRED)
 
 # ----------------------------------------------------------------------------
 # Build Setup
 # ----------------------------------------------------------------------------
-
+option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." OFF)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../lib/mkseed msd)
 
@@ -43,14 +43,18 @@ target_link_libraries (find_seed msd ${SEQAN_LIBRARIES})
 # Add CXX flags found by find_package (SeqAn)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
 
+# Define helper functions and macros used by Google Test.
+include(${CMAKE_CURRENT_SOURCE_DIR}/../../../test/lib/googletest/cmake/internal_utils.cmake)
+config_compiler_and_linker()  # Defined in internal_utils.cmake.
+
 # ----------------------------------------------------------------------------
 # Installation
 # ----------------------------------------------------------------------------
 
 # Set variables for installing, depending on the selected build type
-if (NOT SEQAN_PREFIX_SHARE_DOC)
-  seqan_setup_install_vars (find_seed)
-endif (NOT SEQAN_PREFIX_SHARE_DOC)
+#if (NOT SEQAN_PREFIX_SHARE_DOC)
+#  seqan_setup_install_vars (find_seed)
+#endif (NOT SEQAN_PREFIX_SHARE_DOC)
 
 # Install find_seed in ${PREFIX}/bin directory
 install (TARGETS find_seed
@@ -75,12 +79,12 @@ install (TARGETS find_seed
 # CPack Install
 # ----------------------------------------------------------------------------
 
-if (SEQAN_BUILD_SYSTEM STREQUAL "APP:find_seed")
-  set (CPACK_PACKAGE_NAME "find_seed")
-  set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "find_seed")
-  set (CPACK_DEBIAN_PACKAGE_MAINTAINER "Your Name <your.email@example.net>")
-  set (CPACK_PACKAGE_VENDOR "Your Name <your.email@example.net>")
-
-  seqan_configure_cpack_app (find_seed "find_seed")
-endif (SEQAN_BUILD_SYSTEM STREQUAL "APP:find_seed")
+#if (SEQAN_BUILD_SYSTEM STREQUAL "APP:find_seed")
+#  set (CPACK_PACKAGE_NAME "find_seed")
+#  set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "find_seed")
+#  set (CPACK_DEBIAN_PACKAGE_MAINTAINER "Your Name <your.email@example.net>")
+#  set (CPACK_PACKAGE_VENDOR "Your Name <your.email@example.net>")
+#
+#  seqan_configure_cpack_app (find_seed "find_seed")
+#endif (SEQAN_BUILD_SYSTEM STREQUAL "APP:find_seed")
 

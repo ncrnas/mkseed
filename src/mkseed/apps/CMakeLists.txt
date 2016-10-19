@@ -11,4 +11,7 @@ project (mkseed_apps)
 
 # Register all apps in core.  The apps will be built in SEQAN_RELEASE mode or
 # the apps called ${app} in APP:${app} mode.
-seqan_register_apps ()
+#seqan_register_apps ()
+
+# Add apps subdirectory
+add_subdirectory (find_seed)

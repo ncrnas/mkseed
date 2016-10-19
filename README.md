@@ -2,6 +2,7 @@ mkseed
 ======
 
 [![Travis](https://img.shields.io/travis/takayasaito/mkseed.svg?maxAge=2592000)](https://travis-ci.org/takayasaito/mkseed)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/takayasaito/mkseed?branch=master&svg=true)](https://ci.appveyor.com/project/takayasaito/mkseed)
 
 `mkseed` is a simple tool that aims to find microRNA seed sites.
 
