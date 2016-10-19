@@ -1,10 +1,10 @@
 language: cpp
 
-#branches:
-#  only:
-#  - master
-#  - develop
-#  - "/^v.*$/"
+branches:
+  only:
+  - master
+  - develop
+  - "/^v.*$/"
 
 sudo: false
 
