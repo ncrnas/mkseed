@@ -54,14 +54,28 @@ build_script:
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
+
       & cmake --build . --config $env:CONFIGURATION
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
 
 after_build:
-  - 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe ..\LICENSE ..\NEWS.md ..\README.md
-  - appveyor PushArtifact mkseed_win_v140_$env:PLATFORM.zip
+  - ps: |
+      if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
+      {
+        return
+      }
+
+      & 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe ..\LICENSE ..\NEWS.md ..\README.md
+      if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+      }
+
+      & appveyor PushArtifact mkseed_win_v140_$env:PLATFORM.zip
+      if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+      }
 
 test_script:
   - ps: |
