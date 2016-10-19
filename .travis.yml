@@ -33,10 +33,10 @@ script:
   - ./bin/findseed_test
 
 after_success:
-  - cd ..
+  - pwd
   - mkdir mkseed
-  - cp {LICENSE, NEWS.md, README.md} ./mkseed/
-  - cp ./build/bin/findseed ./mkseed/
+  - cp LICENSE NEWS.md README.md ./mkseed/
+  - cp ./bin/findseed ./mkseed/
   - tar -czvf mkseed_${os}_${compiler}.tar.gz mkseed
 
 deploy:
