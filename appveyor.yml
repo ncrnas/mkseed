@@ -92,7 +92,7 @@ test_script:
 
 deploy:
   - provider: GitHub
-    api_key:
+    auth_token:
       secure: j1h5g/0lsbNqWV8GvsjA/HQdUDxkiM3IyeSB221HvlBZZylb/sGoKvePcwojbgv0
     artifact: /mkseed_win_.*\.zip/
     draft: false
