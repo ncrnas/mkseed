@@ -20,10 +20,6 @@ configuration:
 build:
   verbosity: minimal
 
-artifacts:
-  - path: '_build/Testing/Temporary/*'
-    name: test_results
-
 before_build:
 - ps: |
     Write-Output "Configuration: $env:CONFIGURATION"
