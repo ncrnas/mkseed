@@ -49,7 +49,7 @@ build_script:
     md _build -Force | Out-Null
     cd _build
 
-    & cmake -G "$generator" ../src
+    & cmake -G "$generator" -D CMAKE_BUILD_TYPE=${$env:CONFIGURATION} ../src
     if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
     }

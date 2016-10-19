@@ -144,13 +144,13 @@ add_subdirectory (test)
 # Include CPack
 # ===========================================================================
 
-include (package)
+#include (package)
 
 # ===========================================================================
 # Check Optional Libraries, Print Usage
 # ===========================================================================
 
-include (FeatureSummary)
+#include (FeatureSummary)
 
 # ===========================================================================
 # Setup Common Tool Description for Generic Workflow Nodes
