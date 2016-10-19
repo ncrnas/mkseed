@@ -15,7 +15,7 @@ set (CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/../seq
                                               ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 # Setup the library modules from core and extras
-seqan_setup_library (core)
+#seqan_setup_library (core)
 
 # Add apps subdirectory
 add_subdirectory (apps)

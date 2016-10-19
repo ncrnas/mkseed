@@ -1,12 +1,15 @@
 mkseed
 ======
 
+[![Travis](https://img.shields.io/travis/takayasaito/mkseed.svg?maxAge=2592000)](https://travis-ci.org/takayasaito/mkseed)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/takayasaito/mkseed?branch=master&svg=true)](https://ci.appveyor.com/project/takayasaito/mkseed)
+
 `mkseed` is a simple tool that aims to find microRNA seed sites.
 
 Algorithms
 ----------
 
-`mkseed` has been developed with C++ and [SeqAn](https://www.seqan.de). `mkseed` uses several algorithms offered by [SeqAn](https://www.seqan.de) to find microRNA target sites.
+`mkseed` has been developed with C++ and [SeqAn](https://www.seqan.de). `mkseed` uses several algorithms provided by [SeqAn](https://www.seqan.de) to find microRNA target sites.
 
 -   Suffix array
 -   N-mer
