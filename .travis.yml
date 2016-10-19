@@ -1,33 +1,52 @@
 language: cpp
 
-#branches:
-#  only:
-#    - master
-#    - develop
+branches:
+  only:
+  - master
+  - develop
+  - "/^v.*$/"
 
 sudo: false
 
 matrix:
   include:
-    - os: linux
-      env: CONFIG=Debug
-      compiler: gcc
-    - os: linux
-      env: CONFIG=Debug
-      compiler: clang
-    - os: linux
-      env: CONFIG=Release
-      compiler: gcc
-    - os: osx
-      env: CONFIG=Release
-      compiler: clang
+  - os: linux
+    env: CONFIG=Debug
+    compiler: gcc
+  - os: linux
+    env: CONFIG=Debug
+    compiler: clang
+  - os: linux
+    env: CONFIG=Release
+    compiler: gcc
+  - os: osx
+    env: CONFIG=Release
+    compiler: clang
 
 before_script:
-  - mkdir build
-  - cd build
-  - cmake --version
-  - cmake -D CMAKE_VERBOSE_MAKEFILE=ON -D CMAKE_BUILD_TYPE=${CONFIG} ../src
+- mkdir build
+- cd build
+- cmake --version
+- cmake -D CMAKE_VERBOSE_MAKEFILE=ON -D CMAKE_BUILD_TYPE=${CONFIG} ../src
 
 script:
-  - make
-  - ./bin/findseed_test
+- make
+- "./bin/findseed_test"
+
+after_success:
+- cd ..
+- mkdir mkseed
+- cp LICENSE NEWS.md README.md ./mkseed/
+- cp ./build/bin/find_seed ./mkseed/
+- tar -czvf mkseed_${os}_${compiler}.tar.gz mkseed
+
+deploy:
+  provider: releases
+  api_key:
+    secure: jTygYVlH3QLSRZHaGjZZ4BwLkTnAdT1HF/8nQBd/B91FyorK8CERa8Dh/4Bslstd+rOsOICiSUCi2zJ69YMEcUJe49eklAHy/c/R/d7WQnWYvDNmEZKSwijDVbe9N90MeieKLiInviVEn7tUnwo5D91ViXrl8CA20RpB580x59XLgmxF0ye+F2uifC78wh/Ebaw+lnln+K1NH1DCVNBqfOw/PY2gwuYZCaikRtd1tEpTFIxmBV4LcsOCH1hx31PGXFU4gsic4wKfd6ZQ8MmSF4D72RrjpUSznbqFkbx2xbDmDIupEIk9dJMeGEudsPvobYkFiqdKggqP48mQunWuAr+cmHMbfZPPuviYJin38BNH/G/HQkWiuTT7jWdI+jL0W1uH+5ihWil5iIcE1GVIyjsn+I62N+xMmTjSVMtW7AAfWQjsfqqz9kcqSQEjOsslaUvfgmXJNqsRQXYKsdMKE6NmPJRlbEdUPSDPhSkdidZyiu5EVMzhy9dxPhnA+0rcGx73aR4zU61a8ffyYFGESizJC55fLLwGbftHpi07Sl/hgpBw/BN8rLwxSwSlj1400WNeq0dpV0yp1x24AFfUTze6YJ9CnMy6hkAWjaW0aU6RHgukoSZQAeBekJGdsTAWV1WI0yG0egHGukhQkD31nUBm6IdlHLgGXeqXPkCx7Sk=
+  file: mkseed_${os}_${compiler}.tar.gz
+  skip_cleanup: true
+  on:
+    repo: takayasaito/mkseed
+    tags: true
+    condition: "$CONFIG = Release"
