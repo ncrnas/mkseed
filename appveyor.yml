@@ -43,22 +43,21 @@ before_build:
 
 build_script:
   - ps: |
-    if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
-    {
+      if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
+      {
         return
-    }
-    md _build -Force | Out-Null
-    cd _build
+      }
+      md _build -Force | Out-Null
+      cd _build
 
-    & cmake -G "$generator" -D CMAKE_BUILD_TYPE=$env:CONFIGURATION ../src
-    if ($LastExitCode -ne 0) {
+      & cmake -G "$generator" -D CMAKE_BUILD_TYPE=$env:CONFIGURATION ../src
+      if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
-    }
-    & cmake --build . --config $env:CONFIGURATION
-    if ($LastExitCode -ne 0) {
+      }
+      & cmake --build . --config $env:CONFIGURATION
+      if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
-    }
-
+      }
 
 after_build:
   - 7z a -tzip mkseed_win_v140_$(env:PLATFORM).zip .\bin\$env:CONFIGURATION\findseed_test.exe LICENSE NEWS.md README.md
@@ -66,12 +65,12 @@ after_build:
 
 test_script:
   - ps: |
-    if (($env:Toolset -eq "v100") -and ($env:PLATFORM -eq "x64"))
-    {
+      if (($env:Toolset -eq "v100") -and ($env:PLATFORM -eq "x64"))
+      {
         return
-    }
+      }
 
-    & .\bin\$env:CONFIGURATION\findseed_test.exe
-    if ($LastExitCode -ne 0) {
+      & .\bin\$env:CONFIGURATION\findseed_test.exe
+      if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
-    }
+      }
