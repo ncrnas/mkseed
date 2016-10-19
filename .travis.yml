@@ -31,3 +31,19 @@ before_script:
 script:
   - make
   - ./bin/findseed_test
+
+after_success:
+  - cd ..
+  - mkdir mkseed
+  - cp {LICENSE, NEWS.md, README.md} ./mkseed/
+  - cp ./build/bin/findseed ./mkseed/
+  - tar -czvf mkseed_${os}_${compiler}.tar.gz mkseed
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: mkseed_${os}_${compiler}.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+  condition: "$CONFIG = Release"
