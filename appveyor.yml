@@ -23,6 +23,9 @@ configuration:
   - Release
   - Debug
 
+matrix:
+  fast_finish: true
+
 build:
   verbosity: minimal
 
@@ -56,7 +59,7 @@ build_script:
         throw "Exec: $ErrorMessage"
       }
 
-      & cmake --build . --config $env:CONFIGURATION
+      & cmake --build .
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
@@ -68,7 +71,7 @@ after_build:
         return
       }
 
-      & 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe ..\LICENSE ..\NEWS.md ..\README.md
+      & 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\find_seed.exe ..\LICENSE ..\NEWS.md ..\README.md
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
@@ -85,7 +88,7 @@ test_script:
         return
       }
 
-      & .\bin\$env:CONFIGURATION\findseed_test.exe
+      & ctest -VV
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
