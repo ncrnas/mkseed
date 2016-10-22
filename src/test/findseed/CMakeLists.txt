@@ -1,11 +1,3 @@
-# ===========================================================================
-#                  SeqAn - The Library for Sequence Analysis
-# ===========================================================================
-# File: /test/findseed/CMakeLists.txt
-#
-# CMakeLists.txt file for find_seed
-# ===========================================================================
-
 cmake_minimum_required (VERSION 2.8.2)
 project (test_findseed)
 message (STATUS "Configuring test/find_seed")
@@ -53,3 +45,6 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
 # Define helper functions and macros used by Google Test.
 include(${CMAKE_CURRENT_SOURCE_DIR}/../lib/googletest/cmake/internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
+
+# Add test
+add_test (NAME mkseedtest COMMAND findseed_test)

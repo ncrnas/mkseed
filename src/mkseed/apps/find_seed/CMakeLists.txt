@@ -1,13 +1,6 @@
-# ===========================================================================
-#                  SeqAn - The Library for Sequence Analysis
-# ===========================================================================
-# File: /mikan/apps/find_seed/CMakeLists.txt
-#
-# CMakeLists.txt file for find_seed
-# ===========================================================================
-
 cmake_minimum_required (VERSION 2.8.2)
 project (mkseed_apps_find_seed)
+
 message (STATUS "Configuring mikan/apps/find_seed")
 
 # ----------------------------------------------------------------------------
@@ -51,40 +44,27 @@ config_compiler_and_linker()  # Defined in internal_utils.cmake.
 # Installation
 # ----------------------------------------------------------------------------
 
-# Set variables for installing, depending on the selected build type
-#if (NOT SEQAN_PREFIX_SHARE_DOC)
-#  seqan_setup_install_vars (find_seed)
-#endif (NOT SEQAN_PREFIX_SHARE_DOC)
-
 # Install find_seed in ${PREFIX}/bin directory
 install (TARGETS find_seed
          DESTINATION bin)
 
-# Install non-binary files for the package to "." for app builds and
-# ${PREFIX}/share/doc/find_seed for SeqAn release builds
-#install (FILES LICENSE
-#               README
-#         DESTINATION ${SEQAN_PREFIX_SHARE_DOC})
-#install (FILES example/fasta1.fa
-#               example/fasta2.fa
-#         DESTINATION ${SEQAN_PREFIX_SHARE_DOC}/example)
-
-# ----------------------------------------------------------------------------
-# App Test
-# ----------------------------------------------------------------------------
-
-#seqan_add_app_test (find_seed)
+install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/../../../../LICENSE
+         ${CMAKE_CURRENT_SOURCE_DIR}/../../../../README.md
+         DESTINATION share/doc/mkseed)
 
 # ----------------------------------------------------------------------------
 # CPack Install
 # ----------------------------------------------------------------------------
 
-#if (SEQAN_BUILD_SYSTEM STREQUAL "APP:find_seed")
-#  set (CPACK_PACKAGE_NAME "find_seed")
-#  set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "find_seed")
-#  set (CPACK_DEBIAN_PACKAGE_MAINTAINER "Your Name <your.email@example.net>")
-#  set (CPACK_PACKAGE_VENDOR "Your Name <your.email@example.net>")
-#
-#  seqan_configure_cpack_app (find_seed "find_seed")
-#endif (SEQAN_BUILD_SYSTEM STREQUAL "APP:find_seed")
+set (CPACK_PACKAGE_NAME "find_seed")
+set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "find_seed: identify 6mer miRNA target sites on given seqeuences")
+set (CPACK_DEBIAN_PACKAGE_MAINTAINER "Takaya Saito <takaya.saito@outlook.com>")
+set (CPACK_PACKAGE_VENDOR "Takaya Saito <takaya.saito@outlook.com>")
+set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/../../../../LICENSE)
+set (CPACK_RESOURCE_FILE_README ${CMAKE_CURRENT_SOURCE_DIR}/../../../../README.md)
+set (CPACK_PACKAGE_VERSION "${MKSEED_VERSION}")
+set (CPACK_PACKAGE_VERSION_MAJOR "${MKSEED_VERSION_MAJOR}")
+set (CPACK_PACKAGE_VERSION_MINOR "${MKSEED_VERSION_MINOR}")
+set (CPACK_PACKAGE_VERSION_PATCH "${MKSEED_VERSION_PATCH}")
 
+include (CPack)

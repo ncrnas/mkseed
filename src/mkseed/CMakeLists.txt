@@ -1,11 +1,3 @@
-# ===========================================================================
-#                  SeqAn - The Library for Sequence Analysis
-# ===========================================================================
-# File: /mikan/CMakeLists.txt
-#
-# CMakeLists.txt file for mikan
-# ===========================================================================
-
 cmake_minimum_required (VERSION 2.8.2)
 project (mkseed)
 
