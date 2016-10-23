@@ -88,14 +88,6 @@ set (CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_SOURCE_DIR}/seqan/util/cmake
     ${CMAKE_MODULE_PATH})
 
-#message (STATUS "CMAKE_MODULE_PATH is ${CMAKE_MODULE_PATH}")
-
-# ===========================================================================
-# Add contrib to CMAKE_FIND_ROOT_PATH
-# ===========================================================================
-
-include (SeqAnContribs)
-
 # ===========================================================================
 # Build Mode Branches
 # ===========================================================================

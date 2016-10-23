@@ -8,7 +8,7 @@ message (STATUS "Configuring mikan/apps/find_seed")
 # ----------------------------------------------------------------------------
 
 # Search dependencies
-set (SEQAN_FIND_DEPENDENCIES NONE)
+set (SEQAN_FIND_DEPENDENCIES "NONE")
 find_package (SeqAn REQUIRED)
 
 # ----------------------------------------------------------------------------
