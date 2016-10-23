@@ -76,7 +76,7 @@ after_build:
         throw "Exec: $ErrorMessage"
       }
 
-      & appveyor PushArtifact find_seed-*.zip
+      & appveyor PushArtifact find_seed-\*.zip
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
