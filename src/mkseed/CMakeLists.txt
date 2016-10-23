@@ -6,9 +6,6 @@ set (CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CMAKE_SOURCE_DIR}/seqan/extras/i
                                               ${CMAKE_SOURCE_DIR}/seqan/core/include
                                               ${CMAKE_SOURCE_DIR})
 
-# Setup the library modules from core and extras
-#seqan_setup_library (core)
-
 # Add apps subdirectory
 add_subdirectory (apps)
 
