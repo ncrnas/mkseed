@@ -97,7 +97,7 @@ deploy:
   - provider: GitHub
     auth_token:
       secure: j1h5g/0lsbNqWV8GvsjA/HQdUDxkiM3IyeSB221HvlBZZylb/sGoKvePcwojbgv0
-    artifact: /find_seed-*\.zip/
+    artifact: /find_seed.*\.zip/
     draft: false
     prerelease: false
     on:
