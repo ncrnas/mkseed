@@ -21,7 +21,7 @@ matrix:
     env: CONFIG=Release CP_GENERATOR=TGZ;RPM;DEB
     compiler: gcc
   - os: osx
-    env: CONFIG=Release CP_GENERATOR=DragNDrop
+    env: CONFIG=Release CP_GENERATOR=TGZ
     compiler: clang
 
 before_script:
