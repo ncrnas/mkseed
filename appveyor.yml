@@ -3,7 +3,7 @@ version: '{build}'
 branches:
   only:
     - master
-    - develop
+#    - develop
     - /^v.*$/
 
 os: Visual Studio 2015
