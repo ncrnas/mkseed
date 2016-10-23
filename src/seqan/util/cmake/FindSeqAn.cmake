@@ -108,7 +108,7 @@ include(CheckIncludeFiles)
 # Define Constants.
 # ----------------------------------------------------------------------------
 
-set(_SEQAN_DEFAULT_LIBRARIES ZLIB OpenMP)
+set(_SEQAN_DEFAULT_LIBRARIES OpenMP)
 set(_SEQAN_ALL_LIBRARIES     ZLIB BZip2 OpenMP CUDA)
 
 # ----------------------------------------------------------------------------
