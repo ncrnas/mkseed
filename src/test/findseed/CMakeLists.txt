@@ -14,7 +14,7 @@ find_package (SeqAn REQUIRED)
 # Build Setup
 # ----------------------------------------------------------------------------
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../mkseed/lib/mkseed msd)
+add_subdirectory(${CMAKE_SOURCE_DIR}/mkseed/lib/mkseed msd)
 
 # Add include directories
 include_directories (${SEQAN_INCLUDE_DIRS} ${gtest_SOURCE_DIR}/include
