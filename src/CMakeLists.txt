@@ -1,20 +1,17 @@
-# ===========================================================================
-#                  SeqAn - The Library for Sequence Analysis
-# ===========================================================================
-# File: /CMakeLists.txt
-#
-# Main CMakeLists.txt file.
-# ===========================================================================
-
 project (mkseeds)
-
-# ===========================================================================
-# We require CMake 2.8.2.  Since it is available in the currently stable
-# Debian, it should be available everywhere else, too
-# ===========================================================================
 
 cmake_minimum_required (VERSION 2.8.2)
 
+# Version
+set (MKSEED_VERSION "0.1.8")
+set (MKSEED_VERSION_MAJOR "0")
+set (MKSEED_VERSION_MINOR "1")
+set (MKSEED_VERSION_PATCH "8")
+
+# Run unit tests
+set (ADD_GTEST YES CACHE BOOL "Run unit tests")
+
+# C++ options
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   add_definitions ("-Wno-unused-local-typedefs")
   add_definitions ("-Wno-unused-private-field")
@@ -22,18 +19,6 @@ elseif(MINGW)
   add_definitions ("-Wno-unused-local-typedefs")
   add_definitions ("-Wno-unused-but-set-variable")
 endif()
-
-# ===========================================================================
-# Iff the file INST or SUA exists in the source root
-# turn on SeqAn instrumentation for experimental data collection
-# ===========================================================================
-
-if (EXISTS ${CMAKE_SOURCE_DIR}/INST OR EXISTS ${CMAKE_SOURCE_DIR}/SUA OR EXISTS ${CMAKE_SOURCE_DIR}/SUA)
-  set (SEQAN_INSTRUMENTATION YES)
-else (EXISTS ${CMAKE_SOURCE_DIR}/INST OR EXISTS ${CMAKE_SOURCE_DIR}/SUA OR EXISTS ${CMAKE_SOURCE_DIR}/SUA)
-  set (SEQAN_INSTRUMENTATION NO)
-endif (EXISTS ${CMAKE_SOURCE_DIR}/INST OR EXISTS ${CMAKE_SOURCE_DIR}/SUA OR EXISTS ${CMAKE_SOURCE_DIR}/SUA)
-
 
 # ===========================================================================
 # Warn People About the Perils Of In-Source Builds
@@ -80,6 +65,8 @@ endif (EXISTS "$CMAKE_BINARY_DIR/CMakeLists.txt")
 # Setup Variables
 # ===========================================================================
 
+set (SEQAN_INSTRUMENTATION NO)
+
 if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Release CACHE STRING
          "Choose the type of build, options are: Debug Release RelWithDebInfo ..."
@@ -101,14 +88,6 @@ set (CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_SOURCE_DIR}/seqan/util/cmake
     ${CMAKE_MODULE_PATH})
 
-#message (STATUS "CMAKE_MODULE_PATH is ${CMAKE_MODULE_PATH}")
-
-# ===========================================================================
-# Add contrib to CMAKE_FIND_ROOT_PATH
-# ===========================================================================
-
-include (SeqAnContribs)
-
 # ===========================================================================
 # Build Mode Branches
 # ===========================================================================
@@ -117,43 +96,16 @@ message (STATUS "Initializing SeqAn Build System...")
 
 set (SEQAN_USE_SEQAN_BUILD_SYSTEM TRUE CACHE INTERNAL "Use SeqAn build system." FORCE)
 
-#set (SEQAN_PREFIX_SHARE .)
 include (SeqAnBuildSystem)
 set (SEQAN_ROOT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}" CACHE INTERNAL "Root source directory." FORCE)
 seqan_build_system_init ()
-#seqan_get_repository_info ()
 
 # ===========================================================================
 # Include Subdirectories
 # ===========================================================================
 
-#message (STATUS "Configuring apps")
 add_subdirectory (mkseed)
-#message (STATUS "Configuring core")
-#add_subdirectory (core)
-#message (STATUS "Configuring extras")
-#add_subdirectory (extras)
-#message (STATUS "Configuring docs")
-#add_subdirectory (docs)
-#message (STATUS "Configuring sandbox")
-#add_subdirectory (sandbox)
-
-add_subdirectory (test)
-
-# ===========================================================================
-# Include CPack
-# ===========================================================================
-
-#include (package)
-
-# ===========================================================================
-# Check Optional Libraries, Print Usage
-# ===========================================================================
-
-#include (FeatureSummary)
-
-# ===========================================================================
-# Setup Common Tool Description for Generic Workflow Nodes
-# ===========================================================================
-
-#include (SeqAnCtdSetup)
+# Run unit tests
+if (${ADD_GTEST})
+    add_subdirectory (test)
+endif()

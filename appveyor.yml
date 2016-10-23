@@ -3,7 +3,7 @@ version: '{build}'
 branches:
   only:
     - master
-    - develop
+#    - develop
     - /^v.*$/
 
 os: Visual Studio 2015
@@ -22,6 +22,9 @@ platform:
 configuration:
   - Release
   - Debug
+
+matrix:
+  fast_finish: true
 
 build:
   verbosity: minimal
@@ -68,12 +71,12 @@ after_build:
         return
       }
 
-      & 7z a -tzip mkseed_win_v140_$env:PLATFORM.zip .\bin\$env:CONFIGURATION\findseed_test.exe ..\LICENSE ..\NEWS.md ..\README.md
+      & cpack -G ZIP -C $env:CONFIGURATION
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
 
-      & appveyor PushArtifact mkseed_win_v140_$env:PLATFORM.zip
+      & Get-ChildItem .\*.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
@@ -85,7 +88,7 @@ test_script:
         return
       }
 
-      & .\bin\$env:CONFIGURATION\findseed_test.exe
+      & ctest -VV -C $env:CONFIGURATION
       if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
       }
@@ -94,10 +97,11 @@ deploy:
   - provider: GitHub
     auth_token:
       secure: j1h5g/0lsbNqWV8GvsjA/HQdUDxkiM3IyeSB221HvlBZZylb/sGoKvePcwojbgv0
-    artifact: /mkseed_win_.*\.zip/
+    artifact: /find_seed-*\.zip/
     draft: false
     prerelease: false
     on:
       branch: /^v.*$/
       appveyor_repo_tag: true
       configuration: Release
+      Toolset: v140

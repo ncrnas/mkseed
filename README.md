@@ -21,6 +21,14 @@ Installation
 
 `mkseed` bundles all dependent header libraries and uses [CMake](https://cmake.org/) to compile the source code.
 
+Example on Linux/Unix/OS X
+```
+mkdir build
+cd build
+cmake -D CMAKE_INSTALL_PREFIX=/path/to/install -D CMAKE_BUILD_TYPE=Release ../src
+make && make install 
+```
+
 Programs
 --------
 
